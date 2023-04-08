@@ -9,7 +9,6 @@ const UserMenu = () => {
     const toggleOpen = useCallback(() => setIsOpen((lastSnap) => !lastSnap), [])
 
     const registerModal = useRegisterModal()
-    console.log(registerModal)
     return (
         <div
             className="
