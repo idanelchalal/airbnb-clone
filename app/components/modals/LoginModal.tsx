@@ -75,15 +75,17 @@ const LoginModal = () => {
         >
             <hr />
             <Button
-                onClick={() => {}}
+                onClick={() => {
+                    signIn('google')
+                }}
                 outline
                 label="Continue with Google"
                 icon={FcGoogle}
             />
             <Button
-                onClick={() => {}}
+                onClick={() => signIn('github')}
                 outline
-                label="Continue with Google"
+                label="Continue with Github"
                 icon={AiFillGithub}
             />
             <div className="text-neutral-500 text-center mt-4 font-light">

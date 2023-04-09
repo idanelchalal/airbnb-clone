@@ -3,7 +3,7 @@ import Modal from './Modal'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
 import { AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import Heading from '../Heading'
@@ -11,6 +11,7 @@ import Input from '../inputs/Input'
 
 import axios from 'axios'
 import Button from '../Button'
+import { signIn } from 'next-auth/react'
 const RegisterModal = () => {
     const registerModal = useRegisterModal()
     const [isLoading, setIsLoading] = useState(false)
@@ -76,15 +77,17 @@ const RegisterModal = () => {
         >
             <hr />
             <Button
-                onClick={() => {}}
+                onClick={() => {
+                    signIn('google')
+                }}
                 outline
                 label="Continue with Google"
                 icon={FcGoogle}
             />
             <Button
-                onClick={() => {}}
+                onClick={() => signIn('github')}
                 outline
-                label="Continue with Google"
+                label="Continue with Github"
                 icon={AiFillGithub}
             />
             <div className="text-neutral-500 text-center mt-4 font-light">
