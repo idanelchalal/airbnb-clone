@@ -46,7 +46,6 @@ export const authOptions: AuthOptions = {
                 if (!isCorrectPassword) {
                     throw new Error('Invalid credentials')
                 }
-
                 return user
             },
         }),
@@ -56,7 +55,7 @@ export const authOptions: AuthOptions = {
     session: {
         strategy: 'jwt',
     },
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXTAUTH_URL,
 }
 
 export default NextAuth(authOptions)
