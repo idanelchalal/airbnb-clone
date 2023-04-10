@@ -4,7 +4,7 @@ import useRegisterModal from '@/app/hooks/useRegisterModal'
 import { AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { toast } from 'react-hot-toast'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
@@ -28,6 +28,11 @@ const LoginModal = () => {
             password: '',
         },
     })
+
+    const toggle = useCallback(() => {
+        loginModal.onClose()
+        registerModal.onOpen()
+    }, [loginModal, registerModal])
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true)
@@ -90,12 +95,12 @@ const LoginModal = () => {
             />
             <div className="text-neutral-500 text-center mt-4 font-light">
                 <div className="flex flex-row items-center justify-center gap-2">
-                    <div>Forgot your password?</div>
+                    <div>First time using airbnb?</div>
                     <div
-                        onClick={loginModal.onClose}
+                        onClick={toggle}
                         className="text-neutral-800 cursor-pointer hover:underline"
                     >
-                        Recover your password
+                        Create an account!
                     </div>
                 </div>
             </div>

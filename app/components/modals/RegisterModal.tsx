@@ -1,6 +1,8 @@
 'use client'
 import Modal from './Modal'
+import { useCallback } from 'react'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
+import useLoginModal from '@/app/hooks/useLoginModal'
 import { AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { useState } from 'react'
@@ -14,6 +16,7 @@ import Button from '../Button'
 import { signIn } from 'next-auth/react'
 const RegisterModal = () => {
     const registerModal = useRegisterModal()
+    const loginModal = useLoginModal()
     const [isLoading, setIsLoading] = useState(false)
     const {
         register,
@@ -26,6 +29,11 @@ const RegisterModal = () => {
             password: '',
         },
     })
+
+    const toggle = useCallback(() => {
+        registerModal.onClose()
+        loginModal.onOpen()
+    }, [loginModal, registerModal])
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true)
@@ -94,7 +102,7 @@ const RegisterModal = () => {
                 <div className="flex flex-row items-center justify-center gap-2">
                     <div>Already have an account?</div>
                     <div
-                        onClick={registerModal.onClose}
+                        onClick={toggle}
                         className="text-neutral-800 cursor-pointer hover:underline"
                     >
                         Log In
