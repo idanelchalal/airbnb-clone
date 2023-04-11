@@ -1,81 +1,96 @@
+'use client'
 import Container from '../Container'
-
+import { TbBeach, TbMountain, TbPool } from 'react-icons/tb'
+import { MdOutlineVilla } from 'react-icons/md'
+import {
+    GiWindmill,
+    GiCastle,
+    GiForestCamp,
+    GiIsland,
+    GiBoatFishing,
+    GiCaveEntrance,
+    GiCactus,
+    GiBarn,
+} from 'react-icons/gi'
+import { BsSnow } from 'react-icons/bs'
+import { IoDiamond } from 'react-icons/io5'
+import { FaSkiing } from 'react-icons/fa'
 import CategoryBox from '../CategoryBox'
 
 export const categories = [
     {
         label: 'Beach',
-        iconName: 'TbBeach',
+        icon: TbBeach,
         description: 'This property is close to the beach!',
     },
     {
         label: 'Modern',
-        iconName: 'MdOutlineVilla',
+        icon: MdOutlineVilla,
         description: 'This property has windmills!',
     },
     {
         label: 'Windmills',
-        iconName: 'GiWindmill',
+        icon: GiWindmill,
         description: 'This property has windmills!',
     },
     {
         label: 'Countryside',
-        iconName: 'TbMountain',
+        icon: TbMountain,
         description: 'This property is in the countryside!',
     },
     {
         label: 'Pools',
-        iconName: 'TbPool',
+        icon: TbPool,
         description: 'This property has a pool!',
     },
     {
         label: 'Islands',
-        iconName: 'GiIsland',
+        icon: GiIsland,
         description: 'This property is on an island!',
     },
     {
         label: 'Lake',
-        iconName: 'GiBoatFishing',
+        icon: GiBoatFishing,
         description: 'This property is close to a lake!',
     },
     {
         label: 'Skiing',
-        iconName: 'FaSkiing',
+        icon: FaSkiing,
         description: 'This property has skiing activities!',
     },
     {
         label: 'Castles',
-        iconName: 'GiCastle',
+        icon: GiCastle,
         description: 'This property is in a castle',
     },
     {
         label: 'Camping',
-        iconName: 'GiForestCamp',
+        icon: GiForestCamp,
         description: 'This property has camping activties!',
     },
     {
         label: 'Arctic',
-        iconName: 'BsSnow',
+        icon: BsSnow,
         description: 'This property has camping',
     },
     {
         label: 'Cave',
-        iconName: 'GiCaveEntrance',
+        icon: GiCaveEntrance,
         description: 'This property is in a cave!',
     },
     {
         label: 'Desert',
-        iconName: 'GiCactus',
+        icon: GiCactus,
         description: 'This property is in the desert!',
     },
     {
         label: 'Barns',
-        iconName: 'GiBarn',
+        icon: GiBarn,
         description: 'This property is in the barn!',
     },
     {
         label: 'Lux',
-        iconName: 'IoDiamond',
+        icon: IoDiamond,
         description: 'This property is luxurious!',
     },
 ]
@@ -97,7 +112,7 @@ const Categories = () => {
                         key={item.label}
                         label={item.label}
                         description={item.description}
-                        iconName={item.iconName}
+                        icon={item.icon}
                     />
                 ))}
             </div>

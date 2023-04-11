@@ -1,32 +1,19 @@
 'use client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
-import { TbBeach, TbMountain, TbPool } from 'react-icons/tb'
-import { MdOutlineVilla } from 'react-icons/md'
-import {
-    GiWindmill,
-    GiCastle,
-    GiForestCamp,
-    GiIsland,
-    GiBoatFishing,
-    GiCaveEntrance,
-    GiCactus,
-    GiBarn,
-} from 'react-icons/gi'
-import { BsSnow } from 'react-icons/bs'
-import { IoDiamond } from 'react-icons/io5'
-import { FaSkiing } from 'react-icons/fa'
+
 import qs from 'query-string'
+import { IconType } from 'react-icons'
 interface CategoryBoxProps {
     description: string
-    iconName: string
+    icon: IconType
     label: string
     selected?: boolean
 }
 
 const CategoryBox: React.FC<CategoryBoxProps> = ({
     description,
-    iconName,
+    icon: Icon,
     label,
     selected,
 }) => {
@@ -71,7 +58,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
     ${selected ? 'text-neutral-800' : 'text-neutral-500'}
     `}
         >
-            {iconName === 'TbBeach' && <TbBeach size={26} />}
+            {/* {iconName === 'TbBeach' && <TbBeach size={26} />}
             {iconName === 'MdOutlineVilla' && <MdOutlineVilla size={26} />}
             {iconName === 'GiWindmill' && <GiWindmill size={26} />}
             {iconName === 'GiForestCamp' && <GiForestCamp size={26} />}
@@ -85,7 +72,8 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             {iconName === 'TbMountain' && <TbMountain size={26} />}
             {iconName === 'TbPool' && <TbPool size={26} />}
             {iconName === 'IoDiamond' && <IoDiamond size={26} />}
-            {iconName === 'FaSkiing' && <FaSkiing size={26} />}
+            {iconName === 'FaSkiing' && <FaSkiing size={26} />} */}
+            <Icon size={26} />
             <div className="font-medium text-sm">{label}</div>
         </div>
     )
