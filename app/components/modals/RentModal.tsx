@@ -128,11 +128,10 @@ const RentModal = () => {
         bodyContent = (
             <div
                 className="
-        flex
-        flex-col
-        gap-8
-        
-        "
+                    flex
+                    flex-col
+                    gap-8
+                "
             >
                 <Heading
                     title="Where is place located?"
