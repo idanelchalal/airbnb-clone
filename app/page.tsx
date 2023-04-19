@@ -6,13 +6,13 @@ import ListingCard from './components/listings/ListingCard'
 import getListings from './actions/getListings'
 import getCurrentUser from './actions/getCurrentUser'
 import { SafeListing } from './types'
+import getReservations from './actions/getReservations'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default async function Home() {
     const listings = await getListings()
     const currentUser = await getCurrentUser()
-
     if (listings.length === 0) {
         return (
             <ClientOnly>
