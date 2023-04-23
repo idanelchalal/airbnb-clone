@@ -1,62 +1,62 @@
-'use client'
-import { FC, useCallback, useEffect, useState } from 'react'
-import Button from '../Button'
-import { IoMdClose } from 'react-icons/io'
+"use client";
+import { FC, useCallback, useEffect, useState } from "react";
+import Button from "../Button";
+import { IoMdClose } from "react-icons/io";
 interface ModalProps {
-    isOpen?: boolean
-    onClose: () => void
-    onSubmit: () => void
-    title?: string
-    body?: React.ReactElement
-    footer?: React.ReactElement
-    actionLabel: string
-    disabled?: boolean
-    secondaryAction?: () => void
-    secondaryActionLabel?: string
+  isOpen?: boolean;
+  onClose: () => void;
+  onSubmit: () => void;
+  title?: string;
+  body?: React.ReactElement;
+  footer?: React.ReactElement;
+  actionLabel: string;
+  disabled?: boolean;
+  secondaryAction?: () => void;
+  secondaryActionLabel?: string;
 }
 
 const Modal: FC<ModalProps> = ({
-    isOpen,
-    onClose,
-    onSubmit,
-    title,
-    body,
-    footer,
-    actionLabel,
-    disabled,
-    secondaryActionLabel,
-    secondaryAction,
+  isOpen,
+  onClose,
+  onSubmit,
+  title,
+  body,
+  footer,
+  actionLabel,
+  disabled,
+  secondaryActionLabel,
+  secondaryAction,
 }) => {
-    const [showModal, setShowModal] = useState(isOpen)
-    useEffect(() => {
-        setShowModal(isOpen)
-    }, [isOpen])
+  const [showModal, setShowModal] = useState(isOpen);
+  useEffect(() => {
+    setShowModal(isOpen);
+  }, [isOpen]);
 
-    const handleClose = useCallback(() => {
-        if (disabled) return
-        setShowModal(false)
-        setTimeout(() => {
-            onClose()
-        }, 300)
-    }, [disabled, onClose])
+  const handleClose = useCallback(() => {
+    if (disabled) return;
+    setShowModal(false);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }, [disabled, onClose]);
 
-    const handleSubmit = useCallback(() => {
-        if (disabled) return
-        onSubmit()
-    }, [disabled, onSubmit])
+  const handleSubmit = useCallback(() => {
+    if (disabled) return;
+    onSubmit();
+  }, [disabled, onSubmit]);
 
-    const handleSecondaryAction = useCallback(() => {
-        if (disabled || !secondaryAction) return
-        secondaryAction()
-    }, [disabled, secondaryAction])
+  const handleSecondaryAction = useCallback(() => {
+    if (disabled || !secondaryAction) return;
+    secondaryAction();
+  }, [disabled, secondaryAction]);
 
-    if (!isOpen) {
-        return null
-    }
+  if (!isOpen) {
+    return null;
+  }
 
-    return (
-        <div
-            className="
+  return (
+    <div
+      className="
                 justify-center
                 items-center 
                 overflow-x-hidden 
@@ -69,9 +69,9 @@ const Modal: FC<ModalProps> = ({
                 bg-neutral-800/70 
                 flex
             "
-        >
-            <div
-                className="
+    >
+      <div
+        className="
                     relative
                     w-full
                     md:w-4/6
@@ -82,18 +82,18 @@ const Modal: FC<ModalProps> = ({
                     h-full
                     lg:h-auto
                     md:h-auto"
-            >
-                {/* CONTENT */}
-                <div
-                    className={`
+      >
+        {/* CONTENT */}
+        <div
+          className={`
                     translate 
                     duration-300 
                     h-full
-                    ${showModal ? 'translate-y-0' : 'translate-y-full'}
-                    ${showModal ? 'opacity-100' : 'opacity-0'}`}
-                >
-                    <div
-                        className="
+                    ${showModal ? "translate-y-0" : "translate-y-full"}
+                    ${showModal ? "opacity-100" : "opacity-0"}`}
+        >
+          <div
+            className="
                         translate
                         h-full
                         lg:h-auto
@@ -109,10 +109,10 @@ const Modal: FC<ModalProps> = ({
                         outline-none
                         focus:outline-none
                     "
-                    >
-                        {/* HEADER */}
-                        <div
-                            className="
+          >
+            {/* HEADER */}
+            <div
+              className="
                             flex
                             item-center
                             p-6
@@ -121,55 +121,55 @@ const Modal: FC<ModalProps> = ({
                             relative
                             border-b-[1px]
                         "
-                        >
-                            <button
-                                onClick={handleClose}
-                                className="
+            >
+              <button
+                onClick={handleClose}
+                className="
                                     p-1
                                     border-0
                                     hover:opacity-70
                                     transition
                                     absolute
                                     left-9"
-                            >
-                                <IoMdClose size={18} />
-                            </button>
-                            <div className="text-lg font-semibold">{title}</div>
-                        </div>
-                        {/* BODY */}
-                        <div
-                            className="
+              >
+                <IoMdClose size={18} />
+              </button>
+              <div className="text-lg font-semibold">{title}</div>
+            </div>
+            {/* BODY */}
+            <div
+              className="
                             relative
                             p-6 flex-auto
                         "
-                        >
-                            {body}
-                        </div>
-                        {/* FOOTER */}
-                        <div className="flex flex-col gap-2 p-6">
-                            <div className="flex flex-row items-center gap-4 w-full">
-                                {secondaryAction && secondaryActionLabel && (
-                                    <Button
-                                        outline
-                                        disabled={disabled}
-                                        label={secondaryActionLabel}
-                                        onClick={handleSecondaryAction}
-                                    />
-                                )}
-
-                                <Button
-                                    disabled={disabled}
-                                    label={actionLabel}
-                                    onClick={handleSubmit}
-                                />
-                            </div>
-                            {footer}
-                        </div>
-                    </div>
-                </div>
+            >
+              {body}
             </div>
-        </div>
-    )
-}
+            {/* FOOTER */}
+            <div className="flex flex-col gap-2 p-6">
+              <div className="flex flex-row items-center gap-4 w-full">
+                {secondaryAction && secondaryActionLabel && (
+                  <Button
+                    outline
+                    disabled={disabled}
+                    label={secondaryActionLabel}
+                    onClick={handleSecondaryAction}
+                  />
+                )}
 
-export default Modal
+                <Button
+                  disabled={disabled}
+                  label={actionLabel}
+                  onClick={handleSubmit}
+                />
+              </div>
+              {footer}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;

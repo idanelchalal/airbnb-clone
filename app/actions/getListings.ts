@@ -1,30 +1,83 @@
-import prisma from '../../libs/prismadb'
+import prisma from "../../libs/prismadb";
 
 export interface IListingsParams {
-    userId?: string
+  userId?: string;
+  guestsCount?: number;
+  roomCount?: number;
+  bathroomCount?: number;
+  startDate?: string;
+  endDate?: string;
+  category?: string;
+  locationValue?: string;
 }
 
 export default async function getListings(params: IListingsParams) {
-    const { userId } = params
-    let query: any = {}
+  const {
+    userId,
+    bathroomCount,
+    category,
+    endDate,
+    guestsCount,
+    locationValue,
+    roomCount,
+    startDate,
+  } = params;
+  let query: any = {};
 
-    if (userId) {
-        query.userId = userId
-    }
+  if (userId) {
+    query.userId = userId;
+  }
 
-    try {
-        const listings = await prisma.listing.findMany({
-            orderBy: {
-                createdAt: 'desc',
+  if (category) query.category = category;
+
+  if (roomCount)
+    query.roomCount = {
+      gte: +roomCount,
+    };
+  if (bathroomCount)
+    query.bathroomCount = {
+      gte: +bathroomCount,
+    };
+  if (guestsCount)
+    query.guestsCount = {
+      gte: +guestsCount,
+    };
+
+  if (locationValue) query.locationValue = locationValue;
+
+  if (startDate && endDate) {
+    query.NOT = {
+      reservations: {
+        some: {
+          OR: [
+            {
+              endDate: { gte: startDate },
+              startDate: { lte: startDate },
             },
-        })
+            {
+              startDate: { lte: endDate },
+              endDate: { gte: endDate },
+            },
+          ],
+        },
+      },
+    };
+  }
 
-        const safeListings = listings.map((listing) => ({
-            ...listing,
-            createdAt: listing.createdAt.toISOString(),
-        }))
-        return safeListings
-    } catch (error: any) {
-        throw new Error(error)
-    }
+  try {
+    const listings = await prisma.listing.findMany({
+      where: query,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const safeListings = listings.map((listing) => ({
+      ...listing,
+      createdAt: listing.createdAt.toISOString(),
+    }));
+    return safeListings;
+  } catch (error: any) {
+    throw new Error(error);
+  }
 }
