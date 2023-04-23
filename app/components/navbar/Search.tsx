@@ -1,13 +1,51 @@
-'use client'
+"use client";
 
-import useSearchModal from '@/app/hooks/useSearchModal'
-import { BiSearch } from 'react-icons/bi'
+import useSearchModal from "@/app/hooks/useSearchModal";
+import { useSearchParams } from "next/navigation";
+import { BiSearch } from "react-icons/bi";
+import useCountries from "@/app/hooks/useCountries";
+import { useMemo } from "react";
+import { differenceInDays } from "date-fns";
+
 const Search = () => {
-    const searchModal = useSearchModal()
-    return (
-        <div
-        onClick={searchModal.onOpen}
-            className="border-[1px]
+  const searchModal = useSearchModal();
+  const params = useSearchParams();
+  const { getByValue } = useCountries();
+
+  const locationValue = params?.get("locationValue");
+  const startDate = params?.get("startDate");
+  const endDate = params?.get("endDate");
+  const guestCount = params?.get("guestCount");
+
+  const locationLabel = useMemo(() => {
+    if (locationValue) getByValue(locationValue as string)?.label;
+    return "Anywhere";
+  }, [getByValue, locationValue]);
+
+  const durationLabel = useMemo(() => {
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+      let diff = differenceInDays(end, start);
+
+      if (diff === 0) {
+        diff = 1;
+        return `${diff} Days`;
+      }
+    }
+
+    return "Any Week";
+  }, [startDate, endDate]);
+
+  const guestLabel = useMemo(() => {
+    if (guestCount) return `${guestCount} Guests`;
+    return "Add Guests";
+  }, [guestCount]);
+
+  return (
+    <div
+      onClick={searchModal.onOpen}
+      className="border-[1px]
         w-full
         md:w-auto
         py-2
@@ -16,22 +54,22 @@ const Search = () => {
         hover:shadow-md
         transition
         cursor-pointer"
-        >
-            <div
-                className="flex
+    >
+      <div
+        className="flex
             flex-row
             items-center
             justify-between"
-            >
-                <div
-                    className="text-sm
+      >
+        <div
+          className="text-sm
                 font-semibold
                 px-6"
-                >
-                    Anywhere
-                </div>
-                <div
-                    className="hidden
+        >
+          {locationLabel}
+        </div>
+        <div
+          className="hidden
                 sm:block
                 text-sm
                 font-semibold
@@ -39,11 +77,11 @@ const Search = () => {
                 border-x-[1px]
                 flex-1
                 text-center"
-                >
-                    Any Week
-                </div>
-                <div
-                    className="
+        >
+          {durationLabel}
+        </div>
+        <div
+          className="
                 text-sm
                 pl-6
                 pr-2
@@ -53,30 +91,30 @@ const Search = () => {
                 items-center
                 gap-3
                 "
-                >
-                    <div
-                        className="
+        >
+          <div
+            className="
                     hidden
                     sm:block
                     "
-                    >
-                        Add Guests
-                    </div>
-                    <div
-                        className="
+          >
+            {guestLabel}
+          </div>
+          <div
+            className="
                     p-2
                     bg-rose-500
                     rounded-full
                     text-white
                     
                     "
-                    >
-                        <BiSearch size={18} />
-                    </div>
-                </div>
-            </div>
+          >
+            <BiSearch size={18} />
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default Search
+export default Search;
